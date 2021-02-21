@@ -7,7 +7,7 @@ session_start();
 	<title>Frog Technical Test</title>
 </head>
 <body>
-<a href="questions.php">Start the quiz!</a>
+<a href="get_started.php">Start the quiz!</a>
 </body>
 </html>
 
