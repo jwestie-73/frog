@@ -5,10 +5,17 @@ error_reporting(E_ALL);
 ini_set("display_errors","On");
 
 $current_question = 0;
-if (isset($_POST['next_question']) && is_numeric($_POST['next_question'])) {
+$loaded = isset($_POST['next_question']) && is_numeric($_POST['next_question']);
+
+if ($loaded) {
     $current_question = $_POST['next_question'];
 
-    $_SESSION['answers'][$current_question-1] = $_POST['question'];
+    if ($current_question < $_SESSION['count']) {
+	    $_SESSION['answers'][$current_question-1] = $_POST['question'];
+    } else {
+	    $_SESSION['answers'][$current_question-1] = $_POST['question'];
+        header("Location: answers.php");
+    }
 }
 
 $question = $_SESSION['questions'][$current_question]['question'];
@@ -27,17 +34,16 @@ $answer4 = $_SESSION['questions'][$current_question]['answer4'];
     <h2>Question <?= $current_question+1; ?></h2>
     <h3><?= $question ?></h3>
     <form method="post" action="questions.php">
-        <div><input type="radio" name="question" value="answer1"><h4><?= $answer1; ?></h4></div>
-        <div><input type="radio" name="question" value="answer2"><h4><?= $answer2; ?></h4></div>
-        <div><input type="radio" name="question" value="answer3"><h4><?= $answer3; ?></h4></div>
-        <div><input type="radio" name="question" value="answer4"><h4><?= $answer4; ?></h4></div>
+        <div><input type="radio" name="question" value="answer1" checked><?= $answer1; ?></div>
+        <div><input type="radio" name="question" value="answer2"><?= $answer2; ?></div>
+        <div><input type="radio" name="question" value="answer3"><?= $answer3; ?></div>
+        <div><input type="radio" name="question" value="answer4"><?= $answer4; ?></div>
         <div>
             <input type="submit" value="Submit Answer">
             <input type="hidden" name="next_question" value="<?= $current_question +1; ?>">
         </div>
     </form>
-
-</body>
+   </body>
 </html>
 
 
