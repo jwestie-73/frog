@@ -1,46 +1,79 @@
 <?php
 session_start();
-// Uncomment the 2 lines below to see errors on the page.
-error_reporting(E_ALL);
-ini_set("display_errors","On");
 
 require_once "questions.class.php";
 $score = questions::get_score($_SESSION['questions'], $_SESSION['answers']);
-//echo '<pre style="background-color:white">'.print_r($_SESSION, true).'</pre>';
-//die();
+
 
 ?>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="quiz.css" rel="stylesheet" type="text/css">
 	<title>Answers</title>
 </head>
 <body>
-	<h1>Answer Time</h1>
+<div class="blankpage">
+    <div class="title">
+        <h1>Answer Time</h1>
+    </div>
 
-	<?php
-	foreach ($_SESSION['questions'] as $question => $detail) {
-		?>
-		<div>
-			<h2>Question <?= $question+1;?> <?= $detail['question'];?></h2>
-			<div>
-				<div><?= $detail['answer1'];?></div>
-				<div><?= questions::get_answer($detail['correct'], $_SESSION['answers'][$question], 'answer1'); ?> </div>
-                <div><?= $detail['answer2'];?></div>
-                <div><?= questions::get_answer($detail['correct'], $_SESSION['answers'][$question], 'answer2'); ?> </div>
-                <div><?= $detail['answer3'];?></div>
-                <div><?= questions::get_answer($detail['correct'], $_SESSION['answers'][$question], 'answer3'); ?> </div>
-                <div><?= $detail['answer4'];?></div>
-                <div><?= questions::get_answer($detail['correct'], $_SESSION['answers'][$question], 'answer4'); ?> </div>
-			</div>
-		</div>
+    <div class="score">
+        You scored <?= $score; ?> out of <?= $_SESSION['count']; ?>
+    </div>
 
-		<?php
-	}
-	?>
+    <?php
+    foreach ($_SESSION['questions'] as $question => $detail) {
+        ?>
+        <div class="question_wrapper">
+            <div class="show_answer">Question <?= $question+1;?> <?= $detail['question'];?></div>
+            <div>
+                <div class="answers">
+                    <div class="answer_image">
+                        <?= questions::get_answer($detail['correct'], $_SESSION['answers'][$question], 'answer1'); ?>
+                    </div>
+                    <div class="answer_list"><?= $detail['answer1'];?></div>
+                    <div class="css_reset"></div>
+                </div>
 
-    <div>You scored <?= $score; ?> out of <?= $_SESSION['count']; ?></div>
+                <div class="answers">
+                    <div class="answer_image">
+                        <?= questions::get_answer($detail['correct'], $_SESSION['answers'][$question], 'answer2'); ?>
+                    </div>
+                    <div class="answer_list"><?= $detail['answer2'];?></div>
+                    <div class="css_reset"></div>
+                </div>
 
-    <div><a href="restart.php">Restart the Quiz</a></div>
+                <div class="answers">
+                    <div class="answer_image">
+                      <?= questions::get_answer($detail['correct'], $_SESSION['answers'][$question], 'answer3'); ?>
+                    </div>
+                    <div class="answer_list"><?= $detail['answer3'];?></div>
+                    <div class="css_reset"></div>
+                </div>
+
+                <div class="answers">
+                    <div class="answer_image">
+                        <?= questions::get_answer($detail['correct'], $_SESSION['answers'][$question], 'answer4'); ?>
+                    </div>
+                    <div class="answer_list"><?= $detail['answer4'];?></div>
+                    <div class="css_reset"></div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+        <?php
+    }
+    ?>
+
+    <div class="startbutton"><a href="restart.php">Restart the Quiz</a></div>
+
+</div>
 
 </body>
 </html>

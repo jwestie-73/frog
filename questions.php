@@ -1,8 +1,5 @@
 <?php
 session_start();
-// Uncomment the 2 lines below to see errors on the page.
-error_reporting(E_ALL);
-ini_set("display_errors","On");
 
 $current_question = 0;
 $loaded = isset($_POST['next_question']) && is_numeric($_POST['next_question']);
@@ -27,23 +24,35 @@ $answer4 = $_SESSION['questions'][$current_question]['answer4'];
 ?>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="quiz.css" rel="stylesheet" type="text/css">
 	<title>Questions</title>
 </head>
 <body>
-    <h1>Question Time</h1>
-    <h2>Question <?= $current_question+1; ?></h2>
-    <h3><?= $question ?></h3>
-    <form method="post" action="questions.php">
-        <div><input type="radio" name="question" value="answer1" checked><?= $answer1; ?></div>
-        <div><input type="radio" name="question" value="answer2"><?= $answer2; ?></div>
-        <div><input type="radio" name="question" value="answer3"><?= $answer3; ?></div>
-        <div><input type="radio" name="question" value="answer4"><?= $answer4; ?></div>
-        <div>
-            <input type="submit" value="Submit Answer">
-            <input type="hidden" name="next_question" value="<?= $current_question +1; ?>">
+    <div class="blankpage">
+        <div class="title">
+            Question Time
         </div>
-    </form>
-   </body>
+
+        <div class="question_wrapper">
+            <div class="question_number">
+                Question <?= $current_question+1; ?>
+            </div>
+            <div class="ask_question"><?= $question ?></div>
+            <form method="post" action="questions.php">
+                <div class="question"><input type="radio" name="question" value="answer1" checked> <?= $answer1; ?></div>
+                <div class="question"><input type="radio" name="question" value="answer2"> <?= $answer2; ?></div>
+                <div class="question"><input type="radio" name="question" value="answer3"> <?= $answer3; ?></div>
+                <div class="question"><input type="radio" name="question" value="answer4"> <?= $answer4; ?></div>
+                <div class="question">
+                    <input type="submit" value="Submit Answer">
+                    <input type="hidden" name="next_question" value="<?= $current_question +1; ?>">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
 </html>
 
 

@@ -78,5 +78,4 @@ class questions {
 		return $score;
 	}
 
-
 }
